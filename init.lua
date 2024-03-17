@@ -213,6 +213,24 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'theHamsta/nvim-dap-virtual-text',
+      'leoluz/nvim-dap-go',
+    },
+    config = function()
+      require('dapui').setup()
+      require('dap-go').setup()
+
+      vim.keymap.set('n', '<leader>dt', ':lua require("dapui").toggle()<CR>', { desc = 'Dap UI Toggle', noremap = true })
+      vim.keymap.set('n', '<leader>db', ':DapToggleBreakpoint<CR>', { noremap = true })
+      vim.keymap.set('n', '<leader>dc', ':DapContinue<CR>', { noremap = true })
+      vim.keymap.set('n', '<leader>dr', ':lua require("dapui").open({reset=true})<CR>', { noremap = true })
+    end,
+  },
+
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
